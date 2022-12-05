@@ -1,0 +1,69 @@
+﻿@model Project_Dezert.Models.Users
+
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+       
+            <div class="modal-content">
+                <span class="close" style="margin-left:95%">&times;</span>
+                <label> Login</label>
+                <input style="border-radius:10px;border:none;outline:none" type="email" value="" />
+                <br />
+                <label>Password</label>
+                <input style="border-radius:10px;border:none;outline:none" type="password" />
+                <br />
+                <input type="button" class="mx-auto" style="width:250px;height:30px;font-size:20px;border-radius:10px;border:none;outline:none;background:#92dce5;" value="Login" />
+
+            </div>
+    </div>
+    
+    <div id="myModalRegistrations" class="modal">
+        @using (Html.BeginForm("Create", "Users", FormMethod.Post))
+        {
+            <!-- Modal content  "Create", "UsersController", FormMethod.Post-->
+          <div class="modal-content">
+            <span class="closeRegistartion" style="margin-left:95%">&times;</span>
+            <label> Login</label>
+                @Html.EditorFor(m=> m.Login)
+            @*<input style="border-radius:10px;border:none;outline:none" type="email" />*@
+            <br />
+            <label>Password</label>
+            @Html.PasswordFor(m=>m.Password)
+           @* <input style="border-radius:10px;border:none;outline:none" type="password" />*@
+            <br />
+            <label>Name</label>
+                @Html.EditorFor(m=> m.Name)
+            @*<input style="border-radius:10px;border:none;outline:none" type="text" />*@
+            <br />
+            <label>Sername</label>
+                @Html.EditorFor(m=> m.Sername)
+           @* <input style="border-radius:10px;border:none;outline:none" type="text" />*@
+            <br />
+                <label>Age</label>
+                @Html.EditorFor(m=> m.Age)
+                @* <input style="border-radius:10px;border:none;outline:none" type="text" />*@
+                <br />
+                <label>PhoneNumber</label>
+                @Html.EditorFor(m=> m.PhoneNumber)
+                @* <input style="border-radius:10px;border:none;outline:none" type="text" />*@
+                <br />
+                <label>Country</label>
+                @Html.EditorFor(m=> m.Country)
+                @* <input style="border-radius:10px;border:none;outline:none" type="text" />*@
+                <br />
+                <label>City</label>
+                @Html.EditorFor(m=> m.City)
+                @* <input style="border-radius:10px;border:none;outline:none" type="text" />*@
+                <br />
+
+                <input type="submit" class="mx-auto" style="width:250px;height:30px;font-size:20px;border:none;outline:none;background:#92dce5;" value="Create new Account" />
+            </div>
+        }
+    </div>
+</div>
