@@ -1,12 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,200&display=swap');
+
 html {
     font-size: 14px;
     background: #2b303a;
 }
-
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 48
+#forum {
+    transform: translate(5%, 50%);
+}
+#group {
+    transform: translate(5%, 50%);
+}
+#custom {
+    transform: translate(5%, 50%);
+}
+#settings {
+    transform: translate(5%, 50%);
+}
+#home {
+    transform: translate(5%, 50%);
+}
+#circle {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 55px;
+    width: 55px;
+    align-items: center;
+    text-align: center;
+    background-color: #92dce5;
+    border-radius: 50%;
+}
+#circle:hover {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 65px;
+    width: 65px;
+    background-color: #92dce5;
+    border-radius: 50%;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
 }
 
+/* Track */
+::-webkit-scrollbar-track {
+    background: #92dce5;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #2b303a;
+}
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -23,6 +67,7 @@ html {
 
 label {
     color: white;
+    font-size:28px;
 }
 
 /* #92dce5  */
@@ -30,7 +75,7 @@ label {
     background-color: #2b303a;
     margin: auto;
     padding: 20px;
-    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 35%;
 }
 
@@ -70,15 +115,6 @@ footer {
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 200, 'opsz' 48
 }
-
-
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 200, 'opsz' 48
-}
-
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 200, 'opsz' 48
-}
 input {
     border-radius: 10px;
     border:none;
@@ -91,10 +127,6 @@ input {
     }
 }
 
-.material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 700, 'GRAD' 0, 'opsz' 48
-}
-
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
@@ -103,8 +135,10 @@ input {
 html {
     position: relative;
     min-height: 100%;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body {
-    margin-bottom: 60px;
+   margin:0px;
+   padding:0px;
 }

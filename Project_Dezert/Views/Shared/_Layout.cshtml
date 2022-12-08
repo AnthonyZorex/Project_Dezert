@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,700,0,200" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav  class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow ">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Desert</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -32,13 +33,22 @@
                         </li>*@
 
                     </ul>
-                    <button style="background:none;border:none;margin-left:50px" id="Registrace">
-                        <span class="material-symbols-outlined end-0">
+                    
+                    <button style="background:none;border:none;margin-left:10px;">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="HomePage">
+                        <span class="material-symbols-outlined">
+                            language
+
+                        </span>
+                        </a>
+                    </button>
+                    <button style="background:none;border:none;margin-left:10px;" id="Registrace">
+                        <span class="material-symbols-outlined end-0" >
                             add_circle
                         </span>
                     </button>
 
-                    <button style="background:none;border:none" id="myBtn" name="Login">
+                    <button style="background:none;border:none;margin-left:10px;" id="myBtn" name="Login">
 
                         <span class="material-symbols-outlined mx-auto end-0">
                             login
@@ -48,26 +58,26 @@
                     @*<span class="material-symbols-outlined end-0">
                     logout
                     </span>*@
-                    
+                   
                     </div>
                     </div>
                  
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
+    <div class="container" style="padding:0px;margin:0px">
+        <main role="main" class="pb-1">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class=" footer text-muted">
         <div class="container">
-            <span class="material-symbols-outlined">
+           @* <span class="material-symbols-outlined">
                 home
             </span>
             <span class="material-symbols-outlined">
                 settings
-            </span>
+            </span>*@
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -76,40 +86,3 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-<script>
-    var modal = document.getElementById("myModal");
-    var modalRegistration = document.getElementById("myModalRegistrations");
-    var Registration = document.getElementById("Registrace")
-    // Get the button that opens the modal
-    var btn = document.getElementById("myBtn");
-
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-    var spanCloseRegistration = document.getElementsByClassName("closeRegistartion")[0];
-    Registration.onclick = function()
-    {
-        modalRegistration.style.display = "block";
-    }
-
-    // When the user clicks on the button, open the modal
-    btn.onclick = function () {
-        modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function () {
-        modal.style.display = "none";
-    }
-    spanCloseRegistration.onclick = function() {
-        modalRegistration.style.display = "none";
-    }
-
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function (event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-            modalRegistration.style.display ="none";
-        }
-    }
-</script>

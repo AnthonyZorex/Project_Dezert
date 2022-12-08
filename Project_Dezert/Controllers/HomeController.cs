@@ -10,7 +10,6 @@ namespace Project_Dezert.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -20,7 +19,8 @@ namespace Project_Dezert.Controllers
         {
             return View();
         }
-        public IActionResult Privacy()
+        
+        public IActionResult HomePage()
         {
             return View();
         }
