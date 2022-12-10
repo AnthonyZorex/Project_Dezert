@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Project_Dezert.Models.Users
+@{
     ViewData["Title"] = "Home Page";
 }
 <script>document.getElementsByClassName("container")[0].style.visibility = "hidden";</script>
@@ -16,7 +17,7 @@
 
     </div>
 </div>
-<div class="container" style="position:absolute;background:white;height:100%;width:120px">
+<div class="container" style="position:absolute;background:white;height:100%;width:120px;">
     
     <div onmouseover="document.getElementById('home').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('home').style.transform='translate(5%, 50%)'" style=" margin-top:40px" id="circle">
         <span id="home"  class="material-symbols-outlined ">
@@ -49,6 +50,32 @@
     </div>
 </div>
 
+<div id="MainContentPerson" >
+<div id="windowPerson">
+    <div id="PhotoPerson">
+        <div id="circlePhoto">
+                <span id ="photoAdd" class="material-symbols-outlined">
+                    imagesmode
+                    </span>
+        </div>
+        <div>
+                <span class="material-symbols-outlined">
+                    add_photo_alternate
+                </span>
+        </div>
+            
+    </div>
+        <div id="InfoPerson">
+    @using (Html.BeginForm("HomePage", "Home", FormMethod.Get))
+    {   
+        
+        @Html.DisplayFor(m=>m.Sername) <b style=" margin-left:10px"></b> @Html.DisplayFor(m=>m.Name)
+        
+    }
+
+    </div>
+</div>
+</div>
 <script>
     
     var btn = document.getElementById("myBtn");
@@ -58,7 +85,7 @@
     $(document).ready(function () {
 
         var menu = document.getElementsByClassName("container");
-
+         
         document.getElementsByClassName("container")[0].style.visibility = "hidden";
         if (confirm("Вы правша !")) {
               txt = "Правша!";

@@ -1,28 +1,29 @@
 ﻿@model Project_Dezert.Models.Users
-
-
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <div id="myModal" class="modal">
+        @using (Html.BeginForm("LogIn", "Home", FormMethod.Post))
+        {
             <div class="modal-content">
             <span class="close" style="margin-left:95%">&times;</span>
                 <label> Login</label>
-                <input id="Login" style="border-radius:10px;border:none;outline:none" type="email" value="" />
+               @* <input id="Login" style="border-radius:10px;border:none;outline:none" type="email" value="" />*@
+                @Html.EditorFor(m=>m.Login)
                 <br />
                 <label>Password</label>
-                <input id="Password" style="border-radius:10px;border:none;outline:none" type="password" />
+                @Html.EditorFor(m=>m.Password)
+         @*       <input id="Password" style="border-radius:10px;border:none;outline:none" type="password" />*@
                 <br />
                 <input onclick="Log_in" type="submit" class="mx-auto" style="width:250px;height:30px;font-size:20px;border-radius:10px;border:none;outline:none;background:#92dce5;" value="Login" />
-            
-            
             </div>
+        }
     </div>
         
     <div id="myModalRegistrations" class="modal">
-        @using (Html.BeginForm("Create", "Users", FormMethod.Post))
+        @using (Html.BeginForm("Create", "Home", FormMethod.Post))
         {
           <div class="modal-content">
             <span class="closeRegistartion" style="margin-left:95%">&times;</span>
@@ -86,7 +87,7 @@
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function (event) {
         if (event.target == modal) {
-            modal.style.display = "none";
+            //modal.style.display = "none";
             modalRegistration.style.display = "none";
         }
     }

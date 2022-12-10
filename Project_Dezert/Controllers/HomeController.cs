@@ -9,20 +9,47 @@ namespace Project_Dezert.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        public HomeController(ILogger<HomeController> logger)
+        Project_DezertContext db;
+
+        public HomeController(Project_DezertContext context)
         {
-            _logger = logger;
+            db = context;
+        }
+        public async Task<IActionResult> HomePage()
+        {
+            return View();
+        }
+       
+        [HttpPost]
+        public async Task<IActionResult> LogIn(Users user)
+        {
+            var person = db.Users.ToList();
+
+            var login = person.Where(x => x.Login == user.Login && x.Password == user.Password).Select(d => d);
+
+            return View(login.First());
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }
-        
-        public IActionResult HomePage()
+        public IActionResult Create()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Create(Users user)
+        {
+            db.Users.Add(user);
+            await db.SaveChangesAsync();
+            return RedirectToAction("LastPerson");
+        }
+
+        public IActionResult LastPerson()
+        {
+            var person = db.Users.ToList();
+            return View("HomePage",person.Last());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

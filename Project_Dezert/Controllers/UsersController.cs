@@ -62,18 +62,9 @@ namespace Project_Dezert.Controllers
         {
             if (ModelState.IsValid)
             {
-               
-                    if (users.Password.Length < 6)
-                    {
                         _context.Add(users);
                         await _context.SaveChangesAsync();
-                        return RedirectToAction(nameof(Index));
-                    }
-                    else 
-                    {
-                     
-                    }  
-                
+                        return RedirectToAction(nameof(Index));   
             }
             return View();
         }
