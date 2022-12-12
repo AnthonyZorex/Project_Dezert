@@ -13,7 +13,6 @@ namespace Project_Dezert.Models
         [Column("Age")]
         public int Age { get; set; }
         [Column("PhoneNumber")]
-
         public string PhoneNumber { get; set; }
         [Column("Name")]
         [RegularExpression(@"^(([A-za-z]+[\s]{1}[A-za-z]+)|([A-Za-z]+))$")]
@@ -25,5 +24,15 @@ namespace Project_Dezert.Models
         public string City { get; set; }
         [Column("Country")]
         public string Country { get; set; }
+
+        //public int friednID { get; set; }
+
+        //[DataType(DataType.Upload)]
+        //[Display(Name = "Upload File")]
+        //[Required(ErrorMessage = "Please choose file to upload.")]
+        //public byte[] PhotoMain { get; set; }
+
+        //public Photo Photos { get; set; }
+       
     }
 }

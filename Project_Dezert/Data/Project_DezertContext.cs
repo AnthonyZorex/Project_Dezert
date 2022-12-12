@@ -15,5 +15,7 @@ namespace Project_Dezert.Data
         }
 
         public DbSet<Project_Dezert.Models.Users> Users { get; set; }
+
+        public DbSet<Project_Dezert.Models.Photo> Photo { get; set; } = default!;
     }
 }

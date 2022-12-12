@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model Project_Dezert.Models.Users
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,7 +19,7 @@
     <header>
         <nav  class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow ">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img width="50px" height="50px" src="~/Image/220157.png" /></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img width="50px" height="50px" src="~/Image/220157.png" style="margin-left:25px;"/></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,33 +30,28 @@
 
                     </ul>
                     
-                    <button style="background:none;border:none;margin-left:10px;">
+                   @* <button id="lang" style="background:none;border:none;margin-left:10px;">
                         <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="HomePage">
                         <span class="material-symbols-outlined">
                             language
-
                         </span>
                         </a>
-                    </button>
+                    </button>*@
                     <button style="background:none;border:none;margin-left:10px;" id="Registrace">
                         <span class="material-symbols-outlined end-0" >
                             add_circle
                         </span>
                     </button>
+                    <label style="color:#2b303a" id="LogIn">@Html.DisplayFor(m=>m.Sername) <b style=" margin-left:10px"> </b> @Html.DisplayFor(m=>m.Name)</label>
+                    <button  style="background:none;border:none;margin-left:10px;" id="myBtn" name="Login">
 
-                    <button style="background:none;border:none;margin-left:10px;" id="myBtn" name="Login">
-
-                        <span class="material-symbols-outlined mx-auto end-0">
+                        <span  class="material-symbols-outlined mx-auto end-0">
                             login
                         </span>
 
                     </button>
                     <div class="cursor"></div>
                     <div class="cursor2"></div>
-                    @*<span class="material-symbols-outlined end-0">
-                    logout
-                    </span>*@
-                   
                     </div>
                     </div>
                  
@@ -114,4 +110,5 @@ a.forEach(item => {
     cursor.classList.remove('hover');
   });
 })
+   
 </script>

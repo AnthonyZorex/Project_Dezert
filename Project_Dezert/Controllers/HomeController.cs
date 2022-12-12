@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Project_Dezert.Models;
 using System.Diagnostics;
-using Project_Dezert.Controllers;
 using Project_Dezert.Data;
 
 namespace Project_Dezert.Controllers
@@ -10,10 +8,12 @@ namespace Project_Dezert.Controllers
     public class HomeController : Controller
     {
         Project_DezertContext db;
+        private IWebHostEnvironment Environment;
 
-        public HomeController(Project_DezertContext context)
+        public HomeController(Project_DezertContext context, IWebHostEnvironment _environment)
         {
             db = context;
+            Environment = _environment;
         }
         public async Task<IActionResult> HomePage()
         {
@@ -23,11 +23,18 @@ namespace Project_Dezert.Controllers
         [HttpPost]
         public async Task<IActionResult> LogIn(Users user)
         {
-            var person = db.Users.ToList();
+            if(user.Login!=null && user.Password != null) 
+            {
+                var person = db.Users.ToList();
 
-            var login = person.Where(x => x.Login == user.Login && x.Password == user.Password).Select(d => d);
+                var login = person.FirstOrDefault(x => x.Login == user.Login && x.Password == user.Password);
 
-            return View(login.First());
+                return View("HomePage", login);
+            }
+            else
+            {
+                return View(TempData["msg"] = "<script>alert('Change succesfully');</script>");
+            }
         }
 
         public async Task<IActionResult> Index()
@@ -45,11 +52,10 @@ namespace Project_Dezert.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("LastPerson");
         }
-
         public IActionResult LastPerson()
         {
             var person = db.Users.ToList();
-            return View("HomePage",person.Last());
+            return View("HomePage", person.Last());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

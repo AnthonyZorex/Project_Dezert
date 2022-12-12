@@ -63,7 +63,7 @@
 }
 
 label {
-    color: white;
+    color:white;
     font-size:28px;
 }
 
@@ -139,10 +139,13 @@ html {
 #photoAdd {
     transform: translate(0%, 300%);
 }
+#PhotoPlusIcon {
+    transform: translate(10%, 80%);
+}
 #circlePhoto {
     margin-left: 10px;
-    position:absolute;
-    margin-top:10px;
+    position: absolute;
+    margin-top: 10px;
     height: 180px;
     width: 180px;
     align-items: center;
@@ -153,14 +156,15 @@ html {
     box-shadow: 0px 0px 50px 5px #2b303a;
 }
 #PhotoPerson {
-    margin-left: 60px;
-    margin-top: 0px;
+    margin-left: 100px;
+    margin-top: 20px;
     height: 200px;
     width: 200px;
     align-items: center;
     background-color: white;
     border-radius: 50%;
-    box-shadow: 0px 0px 2px 3px #2b303a;
+    box-shadow: 0px 0px 5px 5px #2b303a;
+    
 }
 #InfoPerson {
     color: white;
@@ -168,16 +172,29 @@ html {
     margin-top:20px;
     font-size: 32px;
 }
-#windowPerson {
- /*   box-shadow: 0px 0px 2px 4px white;*/
+#PhotoPlus {
+    margin-left: 140px;
     position: absolute;
-    margin-top:40px;
-    width: 600px;
-    height: 400px;
+    margin-top: 140px;
+    height: 60px;
+    width: 60px;
+    align-items: center;
+    text-align: center;
+    background-color: white;
+    text-align: center;
+    border-radius: 50%;    
 }
+#windowPerson {
+ 
+    box-shadow: 0px 0px 2px 4px black;
+    position: absolute;
+    margin-top: 40px;
+    width: 600px;
+    height: auto;
+}
+
 #MainContentPerson {
     margin-left: 150px;
-    
 }
 body {
     margin: 0px;
@@ -199,7 +216,7 @@ a:after {
     margin-top: 0px;
     left: 0%;
     background: black;
-    transition: width .3s ease;
+    /*transition: width .3s ease;*/
 }
 
 a:hover:after {

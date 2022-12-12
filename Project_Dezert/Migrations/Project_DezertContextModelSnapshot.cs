@@ -21,50 +21,96 @@ namespace ProjectDezert.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Project_Dezert.Models.Photo", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<byte[]>("Image")
+                    .IsRequired()
+                    .HasColumnType("varbinary(max)");
+
+                b.HasKey("Id");
+
+                b.ToTable("Photo", (string)null);
+            });
+
             modelBuilder.Entity("Project_Dezert.Models.Users", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
+                b.Property<int>("Age")
+                    .HasColumnType("int")
+                    .HasColumnName("Age");
 
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("City")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)")
+                    .HasColumnName("City");
 
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Country")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)")
+                    .HasColumnName("Country");
 
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Login")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)")
+                    .HasColumnName("Login");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)")
+                    .HasColumnName("Name");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Password")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)")
+                    .HasColumnName("Password");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("PhoneNumber")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)")
+                    .HasColumnName("PhoneNumber");
 
-                    b.Property<string>("Sername")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                b.Property<byte[]>("PhotoMain")
+                    .IsRequired()
+                    .HasColumnType("varbinary(max)");
 
-                    b.HasKey("Id");
+                b.Property<int>("PhotosId")
+                    .HasColumnType("int");
 
-                    b.ToTable("Users");
-                });
+                b.Property<string>("Sername")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)")
+                    .HasColumnName("Sername");
+
+                b.HasKey("Id");
+
+                b.HasIndex("PhotosId");
+
+                b.ToTable("Users", (string)null);
+            });
+
+            modelBuilder.Entity("Project_Dezert.Models.Users", b =>
+            {
+                b.HasOne("Project_Dezert.Models.Photo", "Photos")
+                    .WithMany()
+                    .HasForeignKey("PhotosId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
+
+                b.Navigation("Photos");
+            });
 #pragma warning restore 612, 618
         }
     }
+
 }

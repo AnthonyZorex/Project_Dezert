@@ -14,7 +14,7 @@
                 @Html.EditorFor(m=>m.Login)
                 <br />
                 <label>Password</label>
-                @Html.EditorFor(m=>m.Password)
+                @Html.PasswordFor(m=>m.Password)
          @*       <input id="Password" style="border-radius:10px;border:none;outline:none" type="password" />*@
                 <br />
                 <input onclick="Log_in" type="submit" class="mx-auto" style="width:250px;height:30px;font-size:20px;border-radius:10px;border:none;outline:none;background:#92dce5;" value="Login" />
@@ -50,8 +50,9 @@
                 <br />
                 <label>City</label>
                 @Html.EditorFor(m=> m.City)
-                <br />
-                <input type="submit" class="mx-auto" style="width:250px;height:40px;font-size:24px;border:none;outline:none;background:#92dce5;" value="Create new Account" />
+                <br />             
+                
+                <input type="submit" onclick="login()" class="mx-auto" style="width:250px;height:40px;font-size:24px;border:none;outline:none;background:#92dce5;" value="Create new Account" />
             </div>
         }
     </div>
