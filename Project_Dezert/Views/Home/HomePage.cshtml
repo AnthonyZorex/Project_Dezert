@@ -48,13 +48,13 @@
             settings
         </span>
     </div>
-    <div id="circle" onmouseover="document.getElementById('custom').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('custom').style.transform='translate(5%, 60%)'">
+    <div id="circle" onmouseover="document.getElementById('language').style.transform='translate(10%, 75) !importnat'" onmouseout="document.getElementById('language').style.transform='translate(5%, 60%)'">
         <span id="custom" class="material-symbols-outlined">
             language
         </span>
     </div>
 
-    <div id="circle" onmouseover="document.getElementById('settings').style.transform='translate(10%, 80%)'" onmouseout="document.getElementById('settings').style.transform='translate(5%, 60%)'">
+    <div id="circle" onmouseover="document.getElementById('logout').style.transform='translate(10%, 75%) !importnat'" onmouseout="document.getElementById('logou').style.transform='translate(5%, 60%)'">
         <span id="settings" class="material-symbols-outlined ">
             <a href="@Url.Action("Index","Home")"style="color:black">logout</a>
             </span>
@@ -65,9 +65,11 @@
     <div id="windowPerson">
         <div id="PhotoPerson">
             <div id="circlePhoto">
-                <span id="photoAdd" class="material-symbols-outlined">
+                <img decoding="async" src="@("~/image/"+Model.ImageName)" asp-append-version="true" width="180px" height="180px" style="border-radius: 50%;" />
+                
+                @*<span id="photoAdd" class="material-symbols-outlined">
                     imagesmode
-                </span>
+                </span>*@
             </div>
 
             <div id="PhotoPlus">
@@ -101,7 +103,7 @@
                     <br />
                     @Html.DisplayFor(m=>m.PhoneNumber)
                     <br />
-
+                  
                 </details>
             }
 

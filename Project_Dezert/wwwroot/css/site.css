@@ -14,6 +14,12 @@
 #home {
     transform: translate(5%, 50%);
 }
+#language {
+    transform: translate(5%, 50%);
+}
+#logout{
+    transform: translate(5%, 50%);
+}
 #circle {
     margin-left: 20px;
     margin-bottom: 20px;

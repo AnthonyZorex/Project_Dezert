@@ -13,22 +13,27 @@ namespace Project_Dezert.Send_Data
                 serviceProvider.GetRequiredService<
                     DbContextOptions<Project_DezertContext>>()))
             {
-                // Look for any movies.
+
                 if (context.Users.Any())
                 {
-                    return;   // DB has been seeded
+                    return;   
+                }
+                if (context.Photos.Any())
+                {
+                    return;
                 }
                 context.Users.AddRange(
                    new Users
                    {
-                       Login = "German",
-                       Password = "German",
+                       Login = "Admin",
+                       Password = "Admin",
                        Age = 20,
                        PhoneNumber = "+420773771111",
-                       Name = "German",
-                       Sername = "Chaban",
-                       City = "Odessa",
-                       Country = "Ukraina"
+                       Name = "Anthony",
+                       Sername = "Bonetta",
+                       City = "Praha",
+                       Country = "Czech Republic",
+                       ImageName = "220157.png"
                    }
                 );
                 context.SaveChanges();

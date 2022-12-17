@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using NuGet.Protocol.Plugins;
 using Project_Dezert.Data;
 using Project_Dezert.Models;
@@ -15,13 +17,14 @@ namespace Project_Dezert.Controllers
     public class UsersController : Controller
     {
         private readonly Project_DezertContext _context;
-        
-        public UsersController(Project_DezertContext context)
+        private readonly IWebHostEnvironment _hostEnvironment;
+
+        public UsersController(Project_DezertContext context, IWebHostEnvironment hostEnvironment)
         {
+            this._hostEnvironment = hostEnvironment;
             _context = context;
         }
-        
-        // GET: Users
+
         public async Task<IActionResult> Index()
         {
               return _context.Users != null ? 
@@ -29,7 +32,6 @@ namespace Project_Dezert.Controllers
                           Problem("Entity set 'Project_DezertContext.Users'  is null.");
         }
 
-        // GET: Users/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Users == null)
@@ -47,7 +49,6 @@ namespace Project_Dezert.Controllers
             return View(users);
         }
 
-        // GET: Users/Create
         public IActionResult Create()
         {
             return View();
@@ -58,11 +59,20 @@ namespace Project_Dezert.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Login,Password,Age,PhoneNumber,Name,Sername,City,Country")] Users users)
+        public async Task<IActionResult> Create([Bind("Id,Login,Password,Age,PhoneNumber,Name,Sername,City,Country,ImageName")] Users users)
         {
             if (ModelState.IsValid)
             {
-                        _context.Add(users);
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(users.ImageFile.FileName);
+                string extension = Path.GetExtension(users.ImageFile.FileName);
+                users.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await users.ImageFile.CopyToAsync(fileStream);
+                }
+                _context.Add(users);
                         await _context.SaveChangesAsync();
                         return RedirectToAction(nameof(Index));   
             }
@@ -90,7 +100,7 @@ namespace Project_Dezert.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Login,Password,Age,PhoneNumber,Name,Sername,City,Country")] Users users)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Login,Password,Age,PhoneNumber,Name,Sername,City,Country,ImageName")] Users users)
         {
             if (id != users.Id)
             {
@@ -101,6 +111,15 @@ namespace Project_Dezert.Controllers
             {
                 try
                 {
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(users.ImageFile.FileName);
+                    string extension = Path.GetExtension(users.ImageFile.FileName);
+                    users.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await users.ImageFile.CopyToAsync(fileStream);
+                    }
                     _context.Update(users);
                     await _context.SaveChangesAsync();
                 }

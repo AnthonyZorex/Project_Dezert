@@ -11,7 +11,7 @@ using Project_Dezert.Data;
 namespace ProjectDezert.Migrations
 {
     [DbContext(typeof(Project_DezertContext))]
-    [Migration("20221212100514_Photo")]
+    [Migration("20221215202053_Photo")]
     partial class Photo
     {
         /// <inheritdoc />
@@ -19,7 +19,7 @@ namespace ProjectDezert.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.0")
+                .HasAnnotation("ProductVersion", "7.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -32,13 +32,17 @@ namespace ProjectDezert.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<byte[]>("Image")
+                    b.Property<string>("ImageName")
                         .IsRequired()
-                        .HasColumnType("varbinary(max)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Photo");
+                    b.ToTable("Photos");
                 });
 
             modelBuilder.Entity("Project_Dezert.Models.Users", b =>
@@ -83,13 +87,6 @@ namespace ProjectDezert.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("PhoneNumber");
 
-                    b.Property<byte[]>("PhotoMain")
-                        .IsRequired()
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<int>("PhotosId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Sername")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -97,20 +94,7 @@ namespace ProjectDezert.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PhotosId");
-
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("Project_Dezert.Models.Users", b =>
-                {
-                    b.HasOne("Project_Dezert.Models.Photo", "Photos")
-                        .WithMany()
-                        .HasForeignKey("PhotosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
         }

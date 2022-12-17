@@ -2,33 +2,36 @@
 using Microsoft.EntityFrameworkCore;
 using Project_Dezert.Data;
 using Project_Dezert.Models;
+
 namespace Project_Dezert.Controllers
 {
     public class PhotosController : Controller
     {
         private readonly Project_DezertContext _context;
-        public PhotosController(Project_DezertContext context)
+        private readonly IWebHostEnvironment _hostEnvironment;
+        public PhotosController(Project_DezertContext context, IWebHostEnvironment hostEnvironment)
         {
+            this._hostEnvironment = hostEnvironment;
             _context = context;
         }
 
         // GET: Photos
         public async Task<IActionResult> Index()
         {
-              return _context.Photo != null ? 
-                          View(await _context.Photo.ToListAsync()) :
-                          Problem("Entity set 'Project_DezertContext.Photo'  is null.");
+              return _context.Photos != null ? 
+                          View(await _context.Photos.ToListAsync()) :
+                          Problem("Entity set 'Project_DezertContext.Photos'  is null.");
         }
 
         // GET: Photos/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.Photo == null)
+            if (id == null || _context.Photos == null)
             {
                 return NotFound();
             }
 
-            var photo = await _context.Photo
+            var photo = await _context.Photos
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (photo == null)
             {
@@ -49,10 +52,20 @@ namespace Project_Dezert.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Image")] Photo photo)
+        public async Task<IActionResult> Create([Bind("Id,ImageName")] Photo photo)
         {
             if (ModelState.IsValid)
             {
+                string wwwRootPath = _hostEnvironment.WebRootPath;
+                string fileName = Path.GetFileNameWithoutExtension(photo.ImageFile.FileName);
+                string extension = Path.GetExtension(photo.ImageFile.FileName);
+                photo.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await photo.ImageFile.CopyToAsync(fileStream);
+                }
+
                 _context.Add(photo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -63,12 +76,12 @@ namespace Project_Dezert.Controllers
         // GET: Photos/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.Photo == null)
+            if (id == null || _context.Photos == null)
             {
                 return NotFound();
             }
 
-            var photo = await _context.Photo.FindAsync(id);
+            var photo = await _context.Photos.FindAsync(id);
             if (photo == null)
             {
                 return NotFound();
@@ -81,7 +94,7 @@ namespace Project_Dezert.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Image")] Photo photo)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ImageName")] Photo photo)
         {
             if (id != photo.Id)
             {
@@ -92,6 +105,16 @@ namespace Project_Dezert.Controllers
             {
                 try
                 {
+                    string wwwRootPath = _hostEnvironment.WebRootPath;
+                    string fileName = Path.GetFileNameWithoutExtension(photo.ImageFile.FileName);
+                    string extension = Path.GetExtension(photo.ImageFile.FileName);
+                    photo.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                    string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                    using (var fileStream = new FileStream(path, FileMode.Create))
+                    {
+                        await photo.ImageFile.CopyToAsync(fileStream);
+                    }
+
                     _context.Update(photo);
                     await _context.SaveChangesAsync();
                 }
@@ -114,12 +137,12 @@ namespace Project_Dezert.Controllers
         // GET: Photos/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.Photo == null)
+            if (id == null || _context.Photos == null)
             {
                 return NotFound();
             }
 
-            var photo = await _context.Photo
+            var photo = await _context.Photos
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (photo == null)
             {
@@ -134,23 +157,31 @@ namespace Project_Dezert.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.Photo == null)
+            if (_context.Photos == null)
             {
-                return Problem("Entity set 'Project_DezertContext.Photo'  is null.");
+                return Problem("Entity set 'Project_DezertContext.Photos'  is null.");
             }
-            var photo = await _context.Photo.FindAsync(id);
+            var photo = await _context.Photos.FindAsync(id);
             if (photo != null)
             {
-                _context.Photo.Remove(photo);
+                _context.Photos.Remove(photo);
             }
-            
+
+            var imageModel = await _context.Photos.FindAsync(id);
+
+            //delete image from wwwroot/image
+            var imagePath = Path.Combine(_hostEnvironment.WebRootPath, "image", imageModel.ImageName);
+            if (System.IO.File.Exists(imagePath))
+                System.IO.File.Delete(imagePath);
+            //delete the record
+            _context.Photos.Remove(imageModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PhotoExists(int id)
         {
-          return (_context.Photo?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.Photos?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
 }

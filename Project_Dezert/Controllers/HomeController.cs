@@ -2,6 +2,7 @@
 using Project_Dezert.Models;
 using System.Diagnostics;
 using Project_Dezert.Data;
+using Microsoft.Extensions.Hosting;
 
 namespace Project_Dezert.Controllers
 {
@@ -9,7 +10,6 @@ namespace Project_Dezert.Controllers
     {
         Project_DezertContext db;
         private IWebHostEnvironment Environment;
-
         public HomeController(Project_DezertContext context, IWebHostEnvironment _environment)
         {
             db = context;
@@ -36,9 +36,10 @@ namespace Project_Dezert.Controllers
                 return View(TempData["msg"] = "<script>alert('Change succesfully');</script>");
             }
         }
-
+       
         public async Task<IActionResult> Index()
         {
+
             return View();
         }
         public IActionResult Create()
@@ -46,8 +47,23 @@ namespace Project_Dezert.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Users user)
+        public async Task<IActionResult> Create(Users user,Photo photo)
         {
+            string wwwRootPath = Environment.WebRootPath;
+
+            string fileName = Path.GetFileNameWithoutExtension(user.ImageFile.FileName);
+
+            string extension = Path.GetExtension(user.ImageFile.FileName);          
+
+            user.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+
+            string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+            
+            using (var fileStream = new FileStream(path, FileMode.Create))
+            {
+                await user.ImageFile.CopyToAsync(fileStream);
+               
+            }
             db.Users.Add(user);
             await db.SaveChangesAsync();
             return RedirectToAction("LastPerson");
