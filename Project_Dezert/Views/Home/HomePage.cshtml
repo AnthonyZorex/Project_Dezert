@@ -1,4 +1,5 @@
-﻿@model Project_Dezert.Models.Users
+﻿@using System.Text.RegularExpressions;
+@model Project_Dezert.Models.Users
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -17,7 +18,7 @@
 
     </div>
 </div>
-<div class="container" style="position:absolute;background:white;height:100%;width:120px;">
+<div class="container" style="position:absolute;background:#23272a;height:100%;width:120px;">
 
     <div onmouseover="document.getElementById('home').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('home').style.transform='translate(5%, 50%)'" style=" margin-top:40px" id="circle">
         <span id="home" class="material-symbols-outlined ">
@@ -65,51 +66,97 @@
     <div id="windowPerson">
         <div id="PhotoPerson">
             <div id="circlePhoto">
-                <img decoding="async" src="@("~/image/"+Model.ImageName)" asp-append-version="true" width="180px" height="180px" style="border-radius: 50%;" />
-                
-                @*<span id="photoAdd" class="material-symbols-outlined">
-                    imagesmode
-                </span>*@
+                @using (Html.BeginForm("HomePage", "Home", FormMethod.Get))
+                {
+                    Regex regex = new Regex(@"mp4(\w*)");
+                    MatchCollection matches = regex.Matches(Model.ImageName);
+                    if (matches.Count > 0)
+                    {
+                        <video width="180" height="180" loop src="@Url.Content("~/image/"+Model.ImageName)" controls style="border-radius: 50%;"></video>
+                    }
+                    else
+                    {
+                        <img decoding="async" src="@("~/image/"+Model.ImageName)" asp-append-version="true" width="180px" height="180px" style="border-radius: 50%;" />
+                    }
+                }
             </div>
 
-            <div id="PhotoPlus">
+            @*<div id="PhotoPlus">
                 <span id="PhotoPlusIcon" class="material-symbols-outlined">
                     add_photo_alternate
                 </span>
-            </div>
+            </div>*@
 
         </div>
         <div id="InfoPerson">
+ 
             @using (Html.BeginForm("HomePage", "Home", FormMethod.Get))
             {
+
                 @Html.DisplayFor(m=>m.Sername) <b style=" margin-left:10px"></b> @Html.DisplayFor(m=>m.Name)
                 <details>
                     <summary>
                         Inform
                     </summary>
-                    <label>Age</label>
+                    <label>Age: <b style=" margin-left:10px"></b> @Html.DisplayFor(m=>m.Age)</label>
                     <br />
-                    @Html.DisplayFor(m=>m.Age)
+                    <label>Country:<b style=" margin-left:10px"></b> @Html.DisplayFor(m=>m.Country)</label>
                     <br />
-                    <label>Country</label>
+                    <label>City: <b style=" margin-left:10px"></b> @Html.DisplayFor(m=>m.City)</label>
                     <br />
-                    @Html.DisplayFor(m=>m.Country)
+                    <label>PhoneNumber: <b style=" margin-left:10px"></b> @Html.DisplayFor(m=>m.PhoneNumber)</label>
                     <br />
-                    <label>City</label>
-                    <br />
-                    @Html.DisplayFor(m=>m.City)
-                    <br />
-                    <label>PhoneNumber</label>
-                    <br />
-                    @Html.DisplayFor(m=>m.PhoneNumber)
-                    <br />
-                  
                 </details>
             }
 
         </div>
     </div>
+    <div id="PhotoCollactions">
+         <br />
+        <h4 style="color:white">Images/Video</h4>
+       
+        @using (Html.BeginForm("HomePage", "Home", FormMethod.Get))
+        {
+                    Regex regex = new Regex(@"mp4(\w*)");
+                    MatchCollection matches = regex.Matches(Model.ImageName);
+
+                    if (matches.Count > 0)
+                    {
+                <video width="180" height="180" loop src="@Url.Content("~/image/"+Model.ImageName)" controls style="margin-left:70px;display:inline;"></video>
+                    }
+                    else
+                    {
+                        <br />
+                <img decoding="async" src="@("~/image/"+Model.ImageName)" asp-append-version="true" width="150" height="100" style="margin-left:70px;display:inline;" />
+                    }
+                    
+            foreach (var content in Model.Photo)
+            {
+
+                Regex regexVideo = new Regex(@"mp4(\w*)");
+                MatchCollection matchesVideo = regexVideo.Matches(content.ImageName);
+
+                if (matchesVideo.Count > 0)
+                {
+                    <video width="180" height="180" loop src="@Url.Content("~/image/"+content.ImageName)" controls style="margin-left:20px;display:inline;margin-left:20px;"></video>
+                }
+                
+                else
+                {
+                    <img decoding="async" src="@("~/image/"+content.ImageName)" asp-append-version="true" width="180" height="150" style="display:inline;margin-left:20px" />
+                }
+                if(Model.Photo.Count>5)
+                {
+                    <br />
+                }
+
+            }
+            
+        }
+       
+    </div>
 </div>
+
 <script>
 
     var btn = document.getElementById("myBtn");

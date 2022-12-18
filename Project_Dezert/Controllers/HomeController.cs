@@ -3,6 +3,8 @@ using Project_Dezert.Models;
 using System.Diagnostics;
 using Project_Dezert.Data;
 using Microsoft.Extensions.Hosting;
+using NuGet.Protocol.Plugins;
+using Microsoft.EntityFrameworkCore;
 
 namespace Project_Dezert.Controllers
 {
@@ -15,31 +17,49 @@ namespace Project_Dezert.Controllers
             db = context;
             Environment = _environment;
         }
+        [HttpGet]
         public async Task<IActionResult> HomePage()
-        {
+        {   
+            
             return View();
         }
-       
+
+        
         [HttpPost]
-        public async Task<IActionResult> LogIn(Users user)
+        public async Task<IActionResult> LogIn(Users user, Photo photo)
         {
-            if(user.Login!=null && user.Password != null) 
-            {
+            
                 var person = db.Users.ToList();
 
                 var login = person.FirstOrDefault(x => x.Login == user.Login && x.Password == user.Password);
 
-                return View("HomePage", login);
-            }
-            else
-            {
-                return View(TempData["msg"] = "<script>alert('Change succesfully');</script>");
-            }
+                var content = db.Photos.Where(x => x.UserId == login.Id).ToList();
+
+                  var test = login.Photo.ToList();
+      
+                
+                return View("HomePage",login);
+
         }
-       
+        //[HttpPost]
+        //public async Task<IActionResult> EditPhoto(int? id)
+        //{
+        //    if (id == null || db.Users == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var users = await db.Users.FindAsync(id);
+        //    if (users == null)
+        //    {
+        //        return NotFound();
+        //    }
+            
+        //    return View("HomePage",users);
+        //}
+        
         public async Task<IActionResult> Index()
         {
-
             return View();
         }
         public IActionResult Create()

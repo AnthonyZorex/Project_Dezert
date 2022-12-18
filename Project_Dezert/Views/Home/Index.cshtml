@@ -9,23 +9,23 @@
         @using (Html.BeginForm("LogIn", "Home", FormMethod.Post))
         {
             <div class="modal-content">
-            <span class="close" style="margin-left:95%">&times;</span>
+                <span class="close" style="margin-left:95%">&times;</span>
                 <label> Login</label>
-               @* <input id="Login" style="border-radius:10px;border:none;outline:none" type="email" value="" />*@
                 @Html.EditorFor(m=>m.Login)
                 <br />
                 <label>Password</label>
                 @Html.PasswordFor(m=>m.Password)
-         @*       <input id="Password" style="border-radius:10px;border:none;outline:none" type="password" />*@
                 <br />
+                @Html.HiddenFor(m=>m.Photo)
+        
                 <input onclick="Log_in" type="submit" class="mx-auto" style="width:250px;height:30px;font-size:20px;border-radius:10px;border:none;outline:none;background:#92dce5;" value="Login" />
             </div>
         }
     </div>
-        
     <div id="myModalRegistrations" class="modal">
         @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
+
           <div class="modal-content">
             <span class="closeRegistartion" style="margin-left:95%">&times;</span>
             <label> Login</label>

@@ -57,10 +57,15 @@ namespace Project_Dezert.Controllers
             if (ModelState.IsValid)
             {
                 string wwwRootPath = _hostEnvironment.WebRootPath;
+
                 string fileName = Path.GetFileNameWithoutExtension(photo.ImageFile.FileName);
+                
                 string extension = Path.GetExtension(photo.ImageFile.FileName);
+                
                 photo.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+                
                 string path = Path.Combine(wwwRootPath + "/Image/", fileName);
+                
                 using (var fileStream = new FileStream(path, FileMode.Create))
                 {
                     await photo.ImageFile.CopyToAsync(fileStream);
