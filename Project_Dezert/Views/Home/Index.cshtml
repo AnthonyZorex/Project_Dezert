@@ -11,13 +11,13 @@
             <div class="modal-content">
                 <span class="close" style="margin-left:95%">&times;</span>
                 <label> Login</label>
+                @Html.ValidationMessageFor(m=>m.Login)
                 @Html.EditorFor(m=>m.Login)
                 <br />
                 <label>Password</label>
+                @Html.ValidationMessageFor(m=>m.Password)
                 @Html.PasswordFor(m=>m.Password)
                 <br />
-                @Html.HiddenFor(m=>m.Photo)
-        
                 <input onclick="Log_in" type="submit" class="mx-auto" style="width:250px;height:30px;font-size:20px;border-radius:10px;border:none;outline:none;background:#92dce5;" value="Login" />
             </div>
         }
@@ -26,20 +26,20 @@
         @using (Html.BeginForm("Create", "Home", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
 
-          <div class="modal-content">
-            <span class="closeRegistartion" style="margin-left:95%">&times;</span>
-            <label> Login</label>
+            <div class="modal-content" style="text-align:center">
+                <span class="closeRegistartion" style="margin-left:95%">&times;</span>
+                <label> Login</label>
                 @Html.EditorFor(m=> m.Login)
-            <br />
-            <label>Password</label>
-            @Html.PasswordFor(m=>m.Password)
-            <br />
-            <label>Name</label>
+                <br />
+                <label>Password</label>
+                @Html.PasswordFor(m=>m.Password)
+                <br />
+                <label>Name</label>
                 @Html.EditorFor(m=> m.Name)
-            <br />
-            <label>Sername</label>
+                <br />
+                <label>Sername</label>
                 @Html.EditorFor(m=> m.Sername)
-            <br />
+                <br />
                 <label>Age</label>
                 @Html.EditorFor(m=> m.Age)
                 <br />
@@ -53,17 +53,18 @@
                 @Html.EditorFor(m=> m.City)
                 <br />
 
-                <label asp-for="ImageFile" class="control-label"></label>
-                <input asp-for="ImageFile" accept="image/*" />
-                <span asp-validation-for="ImageFile" class="text-danger"></span>
-            <br/>
-            @Html.ValidationMessageFor(m => m.ImageFile, "", new { @class = "error" })
-            <hr/>
+                <label asp-for="ImageFile" style="color:white" class="control-label"></label>
+                <br/>
+                <input asp-for="ImageFile" style="color:white" accept="image/*" />
+               <span asp-validation-for="ImageFile" style="color:white" class="text-danger"></span>
+                <br />
+                @Html.ValidationMessageFor(m => m.ImageFile, "", new { @class = "error" })
+                <hr />
                 <input type="submit" onclick="login()" class="mx-auto" style="width:250px;height:40px;font-size:24px;border:none;outline:none;background:#92dce5;" value="Create new Account" />
             </div>
         }
     </div>
-   
+
 </div>
 <script>
     var modal = document.getElementById("myModal");

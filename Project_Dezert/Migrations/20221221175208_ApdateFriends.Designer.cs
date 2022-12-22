@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_Dezert.Data;
 
@@ -11,9 +12,11 @@ using Project_Dezert.Data;
 namespace ProjectDezert.Migrations
 {
     [DbContext(typeof(Project_DezertContext))]
-    partial class ProjectDezertContextModelSnapshot : ModelSnapshot
+    [Migration("20221221175208_ApdateFriends")]
+    partial class ApdateFriends
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,9 +37,6 @@ namespace ProjectDezert.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("yourID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

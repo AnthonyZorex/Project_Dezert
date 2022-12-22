@@ -27,16 +27,18 @@ namespace Project_Dezert.Models
         public string City { get; set; }
         [Column("Country")]
         public string Country { get; set; }
-        public string ImageName { get; set; } 
+        public string ImageName { get; set; }
 
         [NotMapped]
-        [DisplayName("Upload File")]
+        [DisplayName("Upload your photo")]
         public IFormFile ImageFile { get; set; }
 
         public ICollection<Photo> Photo { get; set; }
+        public ICollection<Friends> friends { get; set; }
         public Users()
         {
             Photo = new List<Photo>();
+            friends = new List<Friends>();
         }
 
     }

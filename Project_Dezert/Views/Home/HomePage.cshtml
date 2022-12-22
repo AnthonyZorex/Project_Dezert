@@ -1,7 +1,7 @@
 ﻿@using System.Text.RegularExpressions;
 @model Project_Dezert.Models.Users
 @{
-    ViewData["Title"] = "Home Page";
+    ViewBag.Title = $"Home Page/{Model.Id}";
 }
 <script>document.getElementsByClassName("container")[0].style.visibility = "hidden";</script>
 <div id="myModal" class="modal">
@@ -18,6 +18,22 @@
 
     </div>
 </div>
+
+<div id="PhotoModal" class="modal">
+    <div class="modal-content">
+        <span class="closePhotoAdd" style="margin-left:95%">&times;</span>
+        <label> Login</label>
+        <input id="Login" style="border-radius:10px;border:none;outline:none" type="email" value="" />
+        <br />
+        <label>Password</label>
+        <input id="Password" style="border-radius:10px;border:none;outline:none" type="password" />
+        <br />
+        <input onclick="Log_in" type="submit" class="mx-auto" style="width:250px;height:30px;font-size:20px;border-radius:10px;border:none;outline:none;background:#92dce5;" value="Login" />
+
+
+    </div>
+</div>
+
 <div class="container" style="position:absolute;background:#23272a;height:100%;width:120px;">
 
     <div onmouseover="document.getElementById('home').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('home').style.transform='translate(5%, 50%)'" style=" margin-top:40px" id="circle">
@@ -34,7 +50,7 @@
 
     <div id="circle" onmouseover="document.getElementById('group').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('group').style.transform='translate(5%, 60%)'">
         <span id="group" class="material-symbols-outlined">
-            group
+            <a href="@Url.Action("Index","Friends")" style="color:black">  group </a>
         </span>
     </div>
 
@@ -57,7 +73,7 @@
 
     <div id="circle" onmouseover="document.getElementById('logout').style.transform='translate(10%, 75%) !importnat'" onmouseout="document.getElementById('logou').style.transform='translate(5%, 60%)'">
         <span id="settings" class="material-symbols-outlined ">
-            <a href="@Url.Action("Index","Home")"style="color:black">logout</a>
+            <a href="@Url.Action("Index","Home",new{Model.Id})"style="color:black">logout</a>
             </span>
     </div>
 </div>
@@ -81,14 +97,14 @@
                 }
             </div>
 
-            @*<div id="PhotoPlus">
+           <div id="PhotoPlus">
                 <span id="PhotoPlusIcon" class="material-symbols-outlined">
                     add_photo_alternate
                 </span>
-            </div>*@
+            </div>
 
         </div>
-        <div id="InfoPerson">
+        <div id="InfoPerson">   
  
             @using (Html.BeginForm("HomePage", "Home", FormMethod.Get))
             {
@@ -107,6 +123,7 @@
                     <label>PhoneNumber: <b style=" margin-left:10px"></b> @Html.DisplayFor(m=>m.PhoneNumber)</label>
                     <br />
                 </details>
+             
             }
 
         </div>
@@ -117,17 +134,18 @@
        
         @using (Html.BeginForm("HomePage", "Home", FormMethod.Get))
         {
+          
                     Regex regex = new Regex(@"mp4(\w*)");
                     MatchCollection matches = regex.Matches(Model.ImageName);
 
                     if (matches.Count > 0)
                     {
-                <video width="180" height="180" loop src="@Url.Content("~/image/"+Model.ImageName)" controls style="margin-left:70px;display:inline;"></video>
+                    <video width="180" height="180" loop src="@Url.Content("~/image/"+Model.ImageName)" controls style="margin-left:70px;display:inline;"></video>
                     }
                     else
                     {
                         <br />
-                <img decoding="async" src="@("~/image/"+Model.ImageName)" asp-append-version="true" width="150" height="100" style="margin-left:70px;display:inline;" />
+                    <img decoding="async" src="@("~/image/"+Model.ImageName)" asp-append-version="true" width="150" height="100" style="margin-left:70px;display:inline;" />
                     }
                     
             foreach (var content in Model.Photo)
@@ -138,6 +156,7 @@
 
                 if (matchesVideo.Count > 0)
                 {
+
                     <video width="180" height="180" loop src="@Url.Content("~/image/"+content.ImageName)" controls style="margin-left:20px;display:inline;margin-left:20px;"></video>
                 }
                 
@@ -155,9 +174,14 @@
         }
        
     </div>
+    
 </div>
 
 <script>
+
+    var photoAdd = document.getElementById("PhotoPlusIcon");
+    var modalPhoto = document.getElementById("PhotoModal");
+    var closePhotoAdd = document.getElementsByClassName("closePhotoAdd")[0];
 
     var btn = document.getElementById("myBtn");
     var span = document.getElementsByClassName("close")[0];
@@ -190,6 +214,14 @@
         //    document.getElementsByClassName("container")[0].style.visibility = 'visible';
         //    }
     });
+
+    modalPhoto.onclick = function () {
+        photoAdd.style.display = "block";
+    }
+
+    closePhotoAdd.onclick = function () {
+        photoAdd.style.display = "none";
+    }
 
     btn.onclick = function () {
         modal.style.display = "block";

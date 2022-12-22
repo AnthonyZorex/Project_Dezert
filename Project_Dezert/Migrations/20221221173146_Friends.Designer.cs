@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Project_Dezert.Data;
 
@@ -11,9 +12,11 @@ using Project_Dezert.Data;
 namespace ProjectDezert.Migrations
 {
     [DbContext(typeof(Project_DezertContext))]
-    partial class ProjectDezertContextModelSnapshot : ModelSnapshot
+    [Migration("20221221173146_Friends")]
+    partial class Friends
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace ProjectDezert.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Project_Dezert.Models.Friends", b =>
+            modelBuilder.Entity("Project_Dezert.Controllers.Friends", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,13 +33,11 @@ namespace ProjectDezert.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Messager")
+                    b.Property<string>("Message")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("yourID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -124,7 +125,7 @@ namespace ProjectDezert.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Project_Dezert.Models.Friends", b =>
+            modelBuilder.Entity("Project_Dezert.Controllers.Friends", b =>
                 {
                     b.HasOne("Project_Dezert.Models.Users", "User")
                         .WithMany("friends")

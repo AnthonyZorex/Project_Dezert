@@ -18,27 +18,59 @@ namespace Project_Dezert.Controllers
             Environment = _environment;
         }
         [HttpGet]
-        public async Task<IActionResult> HomePage()
-        {   
-            
-            return View();
+        [Route("Home/HomePage")]
+        public async Task<IActionResult> HomePage(Users user)
+        {
+            var content = db.Photos.Where(x => user.Id == x.UserId).ToList();
+            var friend = db.Friends.Where(x => user.Id == x.UserId).ToList();
+            var person = db.Users.Where(x=> user.Id == x.Id);
+            user = person.First();
+
+            //var users = new Users
+            //{
+            //    Id = user.Id,
+            //    Name = user.Name,
+            //    Password = user.Password,
+            //    Login = user.Login,
+            //    City = user.City,
+            //    Country = user.Country,
+            //    PhoneNumber = user.PhoneNumber,
+            //    Photo = content,
+            //    ImageName = user.ImageName,
+            //    Age = user.Age,
+            //    ImageFile= user.ImageFile,
+            //    Sername= user.Sername,
+            //    friends = friend
+            //};
+
+            return View(user);
         }
 
-        
+
         [HttpPost]
         public async Task<IActionResult> LogIn(Users user, Photo photo)
         {
-            
-                var person = db.Users.ToList();
+            var person = db.Users.ToList();
 
-                var login = person.FirstOrDefault(x => x.Login == user.Login && x.Password == user.Password);
+            var login = person.FirstOrDefault(x => x.Login == user.Login && x.Password == user.Password);
+
+            if (login != null)
+            {
 
                 var content = db.Photos.Where(x => x.UserId == login.Id).ToList();
 
-                  var test = login.Photo.ToList();
-      
-                
-                return View("HomePage",login);
+                return RedirectToAction("HomePage",new {login.Id});
+
+            }
+            else
+            {
+                ViewBag.ErrorMessage = "Email and Password not found or matched";
+                return View("Index");
+            }
+
+
+
+
 
         }
         //[HttpPost]
@@ -54,10 +86,10 @@ namespace Project_Dezert.Controllers
         //    {
         //        return NotFound();
         //    }
-            
+
         //    return View("HomePage",users);
         //}
-        
+
         public async Task<IActionResult> Index()
         {
             return View();
@@ -67,22 +99,22 @@ namespace Project_Dezert.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(Users user,Photo photo)
+        public async Task<IActionResult> Create(Users user, Photo photo)
         {
             string wwwRootPath = Environment.WebRootPath;
 
             string fileName = Path.GetFileNameWithoutExtension(user.ImageFile.FileName);
 
-            string extension = Path.GetExtension(user.ImageFile.FileName);          
+            string extension = Path.GetExtension(user.ImageFile.FileName);
 
             user.ImageName = fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
 
             string path = Path.Combine(wwwRootPath + "/Image/", fileName);
-            
+
             using (var fileStream = new FileStream(path, FileMode.Create))
             {
                 await user.ImageFile.CopyToAsync(fileStream);
-               
+
             }
             db.Users.Add(user);
             await db.SaveChangesAsync();

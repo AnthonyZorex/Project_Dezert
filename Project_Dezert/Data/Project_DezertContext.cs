@@ -17,6 +17,7 @@ namespace Project_Dezert.Data
 
         public DbSet<Users> Users { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Project_Dezert.Models.Friends> Friends { get; set; } = default!;
 
     }
 }

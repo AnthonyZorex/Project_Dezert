@@ -1,0 +1,112 @@
+﻿@using System.Text.RegularExpressions;
+@model Project_Dezert.Models.Users
+@{
+    ViewBag.Title = $"Friends";
+}
+<script>document.getElementsByClassName("container")[0].style.visibility = "hidden";</script>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" style="margin-left:95%">&times;</span>
+        <label> Login</label>
+        <input id="Login" style="border-radius:10px;border:none;outline:none" type="email" value="" />
+        <br />
+        <label>Password</label>
+        <input id="Password" style="border-radius:10px;border:none;outline:none" type="password" />
+        <br />
+        <input onclick="Log_in" type="submit" class="mx-auto" style="width:250px;height:30px;font-size:20px;border-radius:10px;border:none;outline:none;background:#92dce5;" value="Login" />
+
+
+    </div>
+</div>
+<div class="container" style="position:absolute;background:#23272a;height:100%;width:120px;">
+
+    <div onmouseover="document.getElementById('home').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('home').style.transform='translate(5%, 50%)'" style=" margin-top:40px" id="circle">
+        <span id="home" class="material-symbols-outlined ">
+            home
+        </span>
+    </div>
+
+    <div id="circle" onmouseover="document.getElementById('forum').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('forum').style.transform='translate(5%, 60%)'">
+        <span id="forum" class="material-symbols-outlined">
+            forum
+        </span>
+    </div>
+
+    <div id="circle" onmouseover="document.getElementById('group').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('group').style.transform='translate(5%, 60%)'">
+        <span id="group" class="material-symbols-outlined">
+            group
+        </span>
+    </div>
+
+    <div id="circle" onmouseover="document.getElementById('custom').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('custom').style.transform='translate(5%, 60%)'">
+        <span id="custom" class="material-symbols-outlined">
+            dashboard_customize
+        </span>
+    </div>
+
+    <div id="circle" onmouseover="document.getElementById('settings').style.transform='translate(10%, 80%)'" onmouseout="document.getElementById('settings').style.transform='translate(5%, 60%)'">
+        <span id="settings" class="material-symbols-outlined ">
+            settings
+        </span>
+    </div>
+    <div id="circle" onmouseover="document.getElementById('language').style.transform='translate(10%, 75) !importnat'" onmouseout="document.getElementById('language').style.transform='translate(5%, 60%)'">
+        <span id="custom" class="material-symbols-outlined">
+            language
+        </span>
+    </div>
+
+    <div id="circle" onmouseover="document.getElementById('logout').style.transform='translate(10%, 75%) !importnat'" onmouseout="document.getElementById('logou').style.transform='translate(5%, 60%)'">
+        <span id="settings" class="material-symbols-outlined ">
+            <a href="@Url.Action("Index","Home")" style="color:black">logout</a>
+        </span>
+    </div>
+</div>
+<script>
+
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+    var modal = document.getElementById("myModal");
+    //var lang = document.getElementById("lang");
+    var registration = document.getElementById("Registrace");
+
+    $(document).ready(function () {
+        var logIn = document.getElementById("LogIn");
+        var menu = document.getElementsByClassName("container");
+        //lang.style.display = "none";
+        btn.style.display = "none";
+        registration.style.display = "none";
+        document.getElementsByClassName("container")[0].style.visibility = 'visible';
+
+
+        // kastom position menu
+
+        //document.getElementsByClassName("container")[0].style.visibility = "hidden";
+
+
+        //if (confirm("Вы правша !")) {
+        //      txt = "Правша!";
+        //    document.getElementsByClassName("container")[0].style.visibility = 'visible';
+        //    $(".container").addClass(".container end-0");
+
+        //    }
+        //   else if (confirm("Вы левша !")) {
+        //      txt = "Левша!";
+        //    document.getElementsByClassName("container")[0].style.visibility = 'visible';
+        //    }
+    });
+
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            modalRegistration.style.display = "none";
+        }
+    }
+</script>
