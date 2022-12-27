@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = $"Home Page/{Model.Id}";
 }
+@Html.HiddenFor(m=>m.Id)
 <script>document.getElementsByClassName("container")[0].style.visibility = "hidden";</script>
 <div id="myModal" class="modal">
     <div class="modal-content">
@@ -14,11 +15,8 @@
         <input id="Password" style="border-radius:10px;border:none;outline:none" type="password" />
         <br />
         <input onclick="Log_in" type="submit" class="mx-auto" style="width:250px;height:30px;font-size:20px;border-radius:10px;border:none;outline:none;background:#92dce5;" value="Login" />
-
-
     </div>
 </div>
-
 <div id="PhotoModal" class="modal">
     <div class="modal-content">
         <span class="closePhotoAdd" style="margin-left:95%">&times;</span>
@@ -29,8 +27,6 @@
         <input id="Password" style="border-radius:10px;border:none;outline:none" type="password" />
         <br />
         <input onclick="Log_in" type="submit" class="mx-auto" style="width:250px;height:30px;font-size:20px;border-radius:10px;border:none;outline:none;background:#92dce5;" value="Login" />
-
-
     </div>
 </div>
 
@@ -38,43 +34,43 @@
 
     <div onmouseover="document.getElementById('home').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('home').style.transform='translate(5%, 50%)'" style=" margin-top:40px" id="circle">
         <span id="home" class="material-symbols-outlined ">
-            home
+            <a href="@Url.Action("HomePage","Home",new{Model.Id})" style="text-decoration:none;color:white">home</a>
         </span>
     </div>
 
     <div id="circle" onmouseover="document.getElementById('forum').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('forum').style.transform='translate(5%, 60%)'">
         <span id="forum" class="material-symbols-outlined">
-            forum
+            <a style="text-decoration:none;color:white" href="@Url.Action("MessagePage","Home",new{Model.Id})"> forum </a>
         </span>
     </div>
 
     <div id="circle" onmouseover="document.getElementById('group').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('group').style.transform='translate(5%, 60%)'">
         <span id="group" class="material-symbols-outlined">
-            <a href="@Url.Action("Index","Friends")" style="color:black">  group </a>
+            <a href="@Url.Action("FriendsPage","Home",new{Model.Id})" style="text-decoration:none;color:white">  group </a>
         </span>
     </div>
 
     <div id="circle" onmouseover="document.getElementById('custom').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('custom').style.transform='translate(5%, 60%)'">
         <span id="custom" class="material-symbols-outlined">
-            dashboard_customize
+            <a style="text-decoration:none;color:white">dashboard_customize</a>
         </span>
     </div>
 
     <div id="circle" onmouseover="document.getElementById('settings').style.transform='translate(10%, 80%)'" onmouseout="document.getElementById('settings').style.transform='translate(5%, 60%)'">
         <span id="settings" class="material-symbols-outlined ">
-            settings
+            <a style="text-decoration:none;color:white">settings</a>
         </span>
     </div>
     <div id="circle" onmouseover="document.getElementById('language').style.transform='translate(10%, 75) !importnat'" onmouseout="document.getElementById('language').style.transform='translate(5%, 60%)'">
         <span id="custom" class="material-symbols-outlined">
-            language
+            <a style="text-decoration:none;color:white">  language</a>
         </span>
     </div>
 
     <div id="circle" onmouseover="document.getElementById('logout').style.transform='translate(10%, 75%) !importnat'" onmouseout="document.getElementById('logou').style.transform='translate(5%, 60%)'">
         <span id="settings" class="material-symbols-outlined ">
-            <a href="@Url.Action("Index","Home",new{Model.Id})"style="color:black">logout</a>
-            </span>
+            <a href="@Url.Action("Index","Home")" style="text-decoration:none;color:white">logout</a>
+        </span>
     </div>
 </div>
 
@@ -97,15 +93,15 @@
                 }
             </div>
 
-           <div id="PhotoPlus">
+            <div id="PhotoPlus">
                 <span id="PhotoPlusIcon" class="material-symbols-outlined">
-                    add_photo_alternate
+                    <a style="text-decoration:none;color:grey"> add_photo_alternate</a>
                 </span>
             </div>
 
         </div>
-        <div id="InfoPerson">   
- 
+        <div id="InfoPerson">
+
             @using (Html.BeginForm("HomePage", "Home", FormMethod.Get))
             {
 
@@ -123,31 +119,43 @@
                     <label>PhoneNumber: <b style=" margin-left:10px"></b> @Html.DisplayFor(m=>m.PhoneNumber)</label>
                     <br />
                 </details>
-             
+
             }
 
         </div>
+        <div>
+            @{
+                var friends = Model.friends;
+                var Friends = friends.Where(x => Model.Id == x.UserId).Select(d => d.UserId).ToList();
+
+                foreach (var listFriends in Friends)
+                {
+                    var p = friends.Select(d => d.User.ImageName).ToList();
+                    <img decoding="async" src="@("~/image/"+p.First())" asp-append-version="true" width="100px" height="100px" />
+                }
+            }
+        </div>
     </div>
     <div id="PhotoCollactions">
-         <br />
+        <br />
         <h4 style="color:white">Images/Video</h4>
-       
+
         @using (Html.BeginForm("HomePage", "Home", FormMethod.Get))
         {
-          
-                    Regex regex = new Regex(@"mp4(\w*)");
-                    MatchCollection matches = regex.Matches(Model.ImageName);
 
-                    if (matches.Count > 0)
-                    {
-                    <video width="180" height="180" loop src="@Url.Content("~/image/"+Model.ImageName)" controls style="margin-left:70px;display:inline;"></video>
-                    }
-                    else
-                    {
-                        <br />
-                    <img decoding="async" src="@("~/image/"+Model.ImageName)" asp-append-version="true" width="150" height="100" style="margin-left:70px;display:inline;" />
-                    }
-                    
+            Regex regex = new Regex(@"mp4(\w*)");
+            MatchCollection matches = regex.Matches(Model.ImageName);
+
+            if (matches.Count > 0)
+            {
+                <video width="180" height="180" loop src="@Url.Content("~/image/"+Model.ImageName)" controls style="margin-left:70px;display:inline;"></video>
+            }
+            else
+            {
+                <br />
+                <img decoding="async" src="@("~/image/"+Model.ImageName)" asp-append-version="true" width="150" height="100" style="margin-left:70px;display:inline;" />
+            }
+
             foreach (var content in Model.Photo)
             {
 
@@ -159,22 +167,22 @@
 
                     <video width="180" height="180" loop src="@Url.Content("~/image/"+content.ImageName)" controls style="margin-left:20px;display:inline;margin-left:20px;"></video>
                 }
-                
+
                 else
                 {
                     <img decoding="async" src="@("~/image/"+content.ImageName)" asp-append-version="true" width="180" height="150" style="display:inline;margin-left:20px" />
                 }
-                if(Model.Photo.Count>5)
+                if (Model.Photo.Count > 5)
                 {
                     <br />
                 }
 
             }
-            
+
         }
-       
+
     </div>
-    
+
 </div>
 
 <script>
@@ -199,10 +207,7 @@
 
 
         // kastom position menu
-
         //document.getElementsByClassName("container")[0].style.visibility = "hidden";
-
-
         //if (confirm("Вы правша !")) {
         //      txt = "Правша!";
         //    document.getElementsByClassName("container")[0].style.visibility = 'visible';

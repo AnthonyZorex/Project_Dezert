@@ -61,7 +61,7 @@
         </nav>
     </header>
     <div class="container" style="padding:0px;margin:0px">
-        <main role="main" class="pb-1">
+        <main role="main" class="pb-0">
             @RenderBody()
         </main>
     </div>
@@ -77,7 +77,7 @@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
-<script>
+@*<script>
     var cursor = document.querySelector('.cursor');
 var cursorinner = document.querySelector('.cursor2');
 var a = document.querySelectorAll('a');
@@ -114,4 +114,4 @@ a.forEach(item => {
   });
 })
    
-</script>
+</script>*@

@@ -18,6 +18,57 @@ namespace Project_Dezert.Controllers
             Environment = _environment;
         }
         [HttpGet]
+        public async Task<IActionResult> MessagePage(Users user)
+        {
+            var person = db.Users.Where(x => user.Id == x.Id);
+            var content = db.Photos.Where(x => user.Id == x.UserId).ToList();
+            var friend = db.Friends.Where(x => user.Id == x.UserId).ToList();
+            user = person.First();
+            var users = new Users
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Password = user.Password,
+                Login = user.Login,
+                City = user.City,
+                Country = user.Country,
+                PhoneNumber = user.PhoneNumber,
+                Photo = content,
+                ImageName = user.ImageName,
+                Age = user.Age,
+                ImageFile = user.ImageFile,
+                Sername = user.Sername,
+                friends = friend
+            };
+            return View(users);
+        }
+        [HttpGet]
+        public async Task<IActionResult> FriendsPage(Users user)
+        {
+            var person = db.Users.Where(x => user.Id == x.Id);
+            var content = db.Photos.Where(x => user.Id == x.UserId).ToList();
+            var friend = db.Friends.Where(x => user.Id == x.UserId).ToList();
+            user = person.First();
+            var users = new Users
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Password = user.Password,
+                Login = user.Login,
+                City = user.City,
+                Country = user.Country,
+                PhoneNumber = user.PhoneNumber,
+                Photo = content,
+                ImageName = user.ImageName,
+                Age = user.Age,
+                ImageFile = user.ImageFile,
+                Sername = user.Sername,
+                friends = friend
+            };
+
+            return View(users);
+        }
+        [HttpGet]
         [Route("Home/HomePage")]
         public async Task<IActionResult> HomePage(Users user)
         {
@@ -25,25 +76,24 @@ namespace Project_Dezert.Controllers
             var friend = db.Friends.Where(x => user.Id == x.UserId).ToList();
             var person = db.Users.Where(x=> user.Id == x.Id);
             user = person.First();
-
-            //var users = new Users
-            //{
-            //    Id = user.Id,
-            //    Name = user.Name,
-            //    Password = user.Password,
-            //    Login = user.Login,
-            //    City = user.City,
-            //    Country = user.Country,
-            //    PhoneNumber = user.PhoneNumber,
-            //    Photo = content,
-            //    ImageName = user.ImageName,
-            //    Age = user.Age,
-            //    ImageFile= user.ImageFile,
-            //    Sername= user.Sername,
-            //    friends = friend
-            //};
-
-            return View(user);
+            var users = new Users
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Password = user.Password,
+                Login = user.Login,
+                City = user.City,
+                Country = user.Country,
+                PhoneNumber = user.PhoneNumber,
+                Photo = content,
+                ImageName = user.ImageName,
+                Age = user.Age,
+                ImageFile = user.ImageFile,
+                Sername = user.Sername,
+                friends = friend
+            };
+            var listUsers = db.Users;
+            return View(users);
         }
 
 

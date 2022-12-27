@@ -140,7 +140,7 @@ html {
     background: #2b303a;
     position: relative;
     min-height: 100%;
-    cursor:none;
+   /* cursor:none;*/
     font-family: 'Montserrat', sans-serif;
 }
 #photoAdd {
@@ -149,6 +149,39 @@ html {
 #PhotoPlusIcon {
     transform: translate(10%, 80%);
 }
+#searcher {
+    color: #fff;
+    height: 60px;
+    width: 800px;
+    background: black;
+    border: 0.2rem solid #5865f2;
+    border-radius: 2rem;
+    padding-left: 20px;
+    font-size:24px;
+}
+#MessedgBox {
+    color: #fff;
+    height: 60px;
+    width: 800px;
+    background: black;
+    border: 0.2rem solid #5865f2;
+    padding-left: 20px;
+    font-size: 24px;
+}
+
+#serch_button {
+    height: 60px;
+    margin-left: 60px;
+    width: 200px;
+    background: black;
+    animation: pulsate 1.5s infinite alternate;
+    border: 0.2rem solid #5865f2;
+    border-radius: 2rem;
+    padding-left: 0.4em;
+    color: #fff;
+    font-size: 22px;
+}
+
 #circlePhoto {
     margin-left: 10px;
     position: absolute;
@@ -162,123 +195,128 @@ html {
     border-radius: 50%;
     box-shadow: 0px 0px 50px 5px #2b303a;
 }
-#PhotoPerson {
-    margin-left: 100px;
-    margin-top: 20px;
-    height: 200px;
-    width: 200px;
-    align-items: center;
-    background-color: white;
-    border-radius: 50%;
-    box-shadow: 0px 0px 5px 5px #2b303a;
-    
-}
-#InfoPerson {
-    color: white;
-    margin-left: 70px;
-    margin-top:20px;
-    font-size: 32px;
-}
-#PhotoPlus {
-    margin-left: 140px;
-    position: absolute;
-    margin-top: 140px;
-    height: 60px;
-    width: 60px;
-    align-items: center;
-    text-align: center;
-    background-color: white;
-    text-align: center;
-    border-radius: 50%;    
-}
-#windowPerson {
-    box-shadow: 0px 0px 2px 4px #32323232;
-    position: absolute;
-    margin-top: 40px;
-    width: auto;
-    padding-right: 70px;
-    height: auto;
-    background: #5865f2;
-    display: inline;
-}
-#PhotoCollactions {
-    box-shadow: 0px 0px 2px 4px #32323232;
-    position: absolute;
-    margin-top: 40px;
-    width: auto;
-    padding-right: 70px;
-    height: 350px;
-    text-align: center;
-    background: #5865f2;
-    margin-left: 650px !important;
-}
 
-#MainContentPerson {
-    margin-left: 150px;
-}
-body {
-    margin: 0px;
-    padding: 0px;
-}
-/*cursor*/
-a {
-    cursor:none;
-    position: relative;
-    text-decoration: none;
-}
+    #PhotoPerson {
+        margin-left: 100px;
+        margin-top: 20px;
+        height: 200px;
+        width: 200px;
+        align-items: center;
+        background-color: white;
+        border-radius: 50%;
+        box-shadow: 0px 0px 5px 5px #2b303a;
+    }
 
-a:after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    display: block;
-    margin-top: 0px;
-    left: 0%;
-    background: black;
-    /*transition: width .3s ease;*/
-}
+    #InfoPerson {
+        color: white;
+        margin-left: 70px;
+        margin-top: 20px;
+        font-size: 32px;
+    }
 
-a:hover:after {
-    width: 100%;
-    left: 0%;
-    background: black;
-}
+    #PhotoPlus {
+        margin-left: 140px;
+        position: absolute;
+        margin-top: 140px;
+        height: 60px;
+        width: 60px;
+        align-items: center;
+        text-align: center;
+        background-color: white;
+        text-align: center;
+        border-radius: 50%;
+    }
 
-.cursor {
-    width: 50px;
-    height: 50px;
-    border-radius: 100%;
-    border: 1px solid black;
-    transition: all 200ms ease-out;
-    position: fixed;
-    pointer-events: none;
-    left: 0;
-    top: 0;
-    transform: translate(calc(-50% + 15px), -50%);
-    z-index:999999;
-}
+    #windowPerson {
+        box-shadow: 0px 0px 2px 4px #32323232;
+        position: absolute;
+        margin-top: 40px;
+        width: auto;
+        padding-right: 70px;
+        height: auto;
+        background: #5865f2;
+        display: inline;
+    }
 
-.cursor2 {
-    z-index: 999999;
-    width: 20px;
-    height: 20px;
-    border-radius: 100%;
-    background-color: black;
-    opacity: .3;
-    position: fixed;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    transition: width .3s, height .3s, opacity .3s;
-}
+    #PhotoCollactions {
+        box-shadow: 0px 0px 2px 4px #32323232;
+        position: absolute;
+        margin-top: 40px;
+        width: auto;
+        padding-right: 70px;
+        height: 350px;
+        text-align: center;
+        background: #5865f2;
+        margin-left: 650px !important;
+    }
 
-.hover {
-    background-color: red;
-    opacity: 0.5;
-}
+    #MainContentPerson {
+        margin-left: 150px;
+    }
 
-.cursorinnerhover {
-    width: 50px;
-    height: 50px;
-    opacity: .5;
-}
+    body {
+        margin: 0px;
+        padding: 0px;
+    }
+    /*cursor*/
+    a {
+        cursor: none;
+        position: relative;
+        text-decoration: none;
+    }
+
+    a:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        display: block;
+        margin-top: 0px;
+        left: 0%;
+        background: black;
+        /*transition: width .3s ease;*/
+    }
+
+    a:hover:after {
+        width: 100%;
+        left: 0%;
+        background: white;
+    }
+
+    /*.cursor {
+        width: 50px;
+        height: 50px;
+        border-radius: 100%;
+        border: 1px solid black;
+        transition: all 200ms ease-out;
+        position: fixed;
+        pointer-events: none;
+        left: 0;
+        top: 0;
+        transform: translate(calc(-50% + 15px), -50%);
+        z-index: 999999;
+    }
+
+    .cursor2 {
+        z-index: 999999;
+        width: 20px;
+        height: 20px;
+        border-radius: 100%;
+        background-color: black;
+        opacity: .3;
+        position: fixed;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        transition: width .3s, height .3s, opacity .3s;
+    }
+
+    .hover {
+        background-color: red;
+        opacity: 0.5;
+    }
+
+    .cursorinnerhover {
+        width: 50px;
+        height: 50px;
+        opacity: .5;
+    }*/

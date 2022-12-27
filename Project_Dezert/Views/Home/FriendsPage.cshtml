@@ -1,8 +1,9 @@
 ﻿@using System.Text.RegularExpressions;
 @model Project_Dezert.Models.Users
 @{
-    ViewBag.Title = $"Friends";
+    ViewBag.Title = $"Friends/{Model.Id}";
 }
+@Html.HiddenFor(m=>m.Id)
 <script>document.getElementsByClassName("container")[0].style.visibility = "hidden";</script>
 <div id="myModal" class="modal">
     <div class="modal-content">
@@ -18,48 +19,62 @@
 
     </div>
 </div>
-<div class="container" style="position:absolute;background:#23272a;height:100%;width:120px;">
-
+<div class="container" >
+   @* При наведении 120px*@
+   
+    <div style="position:absolute;background:#23272a;height:100%;width:90px;display:inline">
     <div onmouseover="document.getElementById('home').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('home').style.transform='translate(5%, 50%)'" style=" margin-top:40px" id="circle">
         <span id="home" class="material-symbols-outlined ">
-            home
-        </span>
+                <a href="@Url.Action("HomePage","Home",new{Model.Id})" style="text-decoration:none;color:white">home</a>
+            </span>
     </div>
-
     <div id="circle" onmouseover="document.getElementById('forum').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('forum').style.transform='translate(5%, 60%)'">
         <span id="forum" class="material-symbols-outlined">
-            forum
+                <a style="text-decoration:none;color:white">forum</a>
         </span>
     </div>
-
     <div id="circle" onmouseover="document.getElementById('group').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('group').style.transform='translate(5%, 60%)'">
         <span id="group" class="material-symbols-outlined">
-            group
+                <a style="text-decoration:none;color:white">group</a>
         </span>
     </div>
-
     <div id="circle" onmouseover="document.getElementById('custom').style.transform='translate(10%, 75%)'" onmouseout="document.getElementById('custom').style.transform='translate(5%, 60%)'">
         <span id="custom" class="material-symbols-outlined">
-            dashboard_customize
+                <a style="text-decoration:none;color:white"> dashboard_customize</a>
         </span>
     </div>
-
     <div id="circle" onmouseover="document.getElementById('settings').style.transform='translate(10%, 80%)'" onmouseout="document.getElementById('settings').style.transform='translate(5%, 60%)'">
         <span id="settings" class="material-symbols-outlined ">
-            settings
+                <a style="text-decoration:none;color:white">  settings </a>
         </span>
     </div>
     <div id="circle" onmouseover="document.getElementById('language').style.transform='translate(10%, 75) !importnat'" onmouseout="document.getElementById('language').style.transform='translate(5%, 60%)'">
         <span id="custom" class="material-symbols-outlined">
-            language
+                <a style="text-decoration:none;color:white">  language </a>
         </span>
     </div>
-
     <div id="circle" onmouseover="document.getElementById('logout').style.transform='translate(10%, 75%) !importnat'" onmouseout="document.getElementById('logou').style.transform='translate(5%, 60%)'">
         <span id="settings" class="material-symbols-outlined ">
-            <a href="@Url.Action("Index","Home")" style="color:black">logout</a>
+                <a href="@Url.Action("Index","Home")" style="text-decoration:none;color:white">logout</a>
         </span>
     </div>
+    </div>
+
+@*https://localhost:44394/Home/FriendsPage*@
+
+    <div style="position:absolute;display:inline;margin-left: 500px !important;margin-top: 30px !important;">
+        <div style="display:inline !important;width:75% !important">
+        <input type="text" id="searcher" />
+    </div>
+        <div style="position:absolute;display:inline;width:25% !important">
+        <input type="button" value="Search" id="serch_button" />
+    </div>
+    <div>
+         <div>
+               
+        </div>
+    </div>
+</div>
 </div>
 <script>
 
